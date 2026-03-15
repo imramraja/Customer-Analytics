@@ -1,81 +1,191 @@
-# 🛒 E-Commerce Analytics: Marketing, Sales & Customer Insights
+# Customer Analytics — End-to-End Analysis
 
-A complete end-to-end data analytics project exploring customer behavior, marketing efficiency, coupon strategy, and sales performance using a multi-source e-commerce dataset. This notebook mirrors the work of a real-world data analyst, combining deep exploratory data analysis (EDA), feature engineering, and domain insights to deliver actionable business intelligence.
+**Author:** Ramraja Yadav  
+Delhi NCR, India  
+GitHub: https://github.com/imramraja  
 
----
-
-## 📌 Project Summary
-
-This project analyzes sales, customer demographics, marketing spend, coupon usage, product performance, and tax implications for an e-commerce company. The goal is to uncover patterns and insights that drive customer retention, revenue growth, and marketing ROI — all while maintaining a clean, structured, and visually compelling narrative.
+This project performs an end-to-end analysis of an e-commerce transaction dataset to understand customer behavior, revenue patterns, and customer value. The analysis includes data cleaning, exploratory data analysis (EDA), cohort retention analysis, RFM segmentation, clustering, and a simple machine learning model to identify high-value customers.
 
 ---
 
-## ✅ Techniques Used:
+# Project Objective
 
-- Data loading, merging, and cleaning across 5 datasets
-- Consistent column standardization and formatting
-- Missing value imputation with `missingno` visual diagnostics
-- Outlier detection using Z-score & IQR methods
-- Univariate & bivariate exploratory data analysis (EDA)
-- Time-based and category-wise trend analysis
-- Customer segmentation using **RFM Analysis**
-- Coupon effectiveness analysis
-- Marketing spend ROI & channel performance insights
-- Customer churn & retention trend exploration
-- Feature correlation & heatmap visualizations
+The main goal of this project is to explore retail transaction data and answer important business questions such as:
+
+- Which countries and products generate the most revenue?
+- How does revenue change over time?
+- How concentrated is revenue among customers?
+- How well does the business retain customers over time?
+- Which customers are the most valuable?
+- Can we predict high-value customers using machine learning?
 
 ---
 
-## 🧠 Skills Demonstrated
+# Dataset
 
-| Area | Skills |
-|------|--------|
-| **Data Analytics** | Multi-source data integration, feature consistency, handling missing data |
-| **Visualization** | Seaborn & Matplotlib for dynamic insights, trend charts, boxplots, heatmaps |
-| **Business Analysis** | RFM segmentation, churn indicators, sales performance, tax impact |
-| **Storytelling** | Clean narrative with executive-level business questions and answers |
-| **Efficiency** | Lightweight, modular codebase for reproducibility and scalability |
+The dataset contains retail transaction records where each row represents a purchased product within an invoice.
 
----
+Main columns:
 
-## 📊 Business Questions Addressed
-
-- What are the sales patterns across time, category, and customer type?
-- How effective are discount coupons in increasing average order value?
-- Which customers are most valuable and which are at risk of churning?
-- Are marketing campaigns yielding strong returns by channel?
-- How do GST tax rates impact pricing and sales by product type?
-- What trends can be leveraged for customer lifetime value optimization?
+| Column | Description |
+|------|-------------|
+| Invoice | Unique invoice number |
+| StockCode | Product identifier |
+| Description | Product name |
+| Quantity | Number of items purchased |
+| InvoiceDate | Date and time of transaction |
+| Price | Price per unit |
+| Customer_ID | Customer identifier |
+| Country | Customer location |
 
 ---
 
-## 📂 Data Sources
+# Workflow
 
-This project uses a real-world Kaggle dataset from:
+## 1. Data Loading
+Load the dataset and inspect its structure, data types, and basic statistics.
 
-🔗 [Marketing Insights for E-Commerce Company](https://www.kaggle.com/datasets/rishikumarrajvansh/marketing-insights-for-e-commerce-company)
+## 2. Data Cleaning
+Several cleaning steps are applied:
 
-The dataset includes:
-- `Online_Sales.csv`
-- `Customers_Data.xlsx`
-- `Discount_Coupon.csv`
-- `Marketing_Spend.csv`
-- `Tax_Amount.xlsx`
+- Remove missing customer IDs
+- Remove duplicate rows
+- Remove cancelled transactions
+- Remove negative quantities and invalid prices
+- Handle extreme values using percentile capping
 
----
-
-## 📁 Notebook Contents
-
-- **🧹 Data Cleaning & Standardization**
-- **📊 Exploratory Data Analysis (EDA)**
-- **📦 Product & Sales Performance**
-- **💳 Coupon Analysis**
-- **📈 Marketing ROI**
-- **🧍 Customer Segmentation & RFM**
-- **📅 Cohort & Retention Trends**
-- **📌 Business-Ready Insights**
-
+A cleaned revenue feature is created to reduce the effect of extreme outliers.
 
 ---
 
+## 3. Feature Engineering
 
+Additional features are created from the transaction timestamp:
+
+- Invoice month
+- Invoice week
+- Day of week
+- Hour of purchase
+
+These features help analyze purchasing patterns and seasonality.
+
+---
+
+## 4. Exploratory Data Analysis
+
+EDA is performed to answer key business questions:
+
+- Monthly revenue trend
+- Top countries by revenue
+- Top products by revenue
+- Distribution of invoice values
+
+Charts are used to visualize trends and patterns.
+
+---
+
+## 5. Revenue Concentration (Pareto Analysis)
+
+Customer revenue distribution is analyzed using Pareto principles.
+
+Metrics calculated include:
+
+- cumulative revenue share
+- top customer contribution
+- approximate Gini coefficient
+
+This helps understand how much revenue is driven by a small group of customers.
+
+---
+
+## 6. Cohort Retention Analysis
+
+Customers are grouped based on their **first purchase month**.
+
+A cohort retention heatmap shows:
+
+- how many customers return in later months
+- how retention decreases over time
+
+This analysis helps identify opportunities to improve repeat purchases.
+
+---
+
+## 7. Customer Lifetime Features
+
+Customer-level features are created such as:
+
+- total orders
+- total revenue
+- average order value
+- customer lifetime duration
+
+These features help measure customer value.
+
+---
+
+## 8. RFM Customer Segmentation
+
+Customers are segmented using the **RFM framework**:
+
+- **Recency** — how recently the customer purchased  
+- **Frequency** — how often the customer purchases  
+- **Monetary** — how much the customer spends  
+
+Customers are categorized into segments like:
+
+- Champions
+- Loyal Customers
+- Potential Loyalists
+- At Risk
+- Hibernating
+- Lost
+
+This helps prioritize retention and marketing strategies.
+
+---
+
+## 9. Customer Clustering
+
+K-Means clustering is applied to RFM features to create data-driven customer segments.
+
+This provides an alternative segmentation approach compared to rule-based RFM segmentation.
+
+---
+
+## 10. Machine Learning
+
+A simple machine learning model is built to identify high-value customers.
+
+Steps include:
+
+- defining a high-value customer target
+- training a Random Forest classifier
+- evaluating model performance
+- basic hyperparameter tuning
+
+---
+
+# Key Insights
+
+Some important observations from the analysis include:
+
+- Revenue is highly concentrated among a small number of customers.
+- A few products generate a large portion of total sales.
+- Customer retention drops significantly after the first purchase month.
+- RFM segmentation clearly identifies high-value and at-risk customers.
+
+These insights can help guide marketing strategies and customer retention efforts.
+
+---
+
+# Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+
+---
